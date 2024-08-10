@@ -1,0 +1,22 @@
+{
+    "name": "maksim/blog.com",
+    "type": "project",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "MyProject\\": "src/MyProject/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Панков Максим",
+            "email": "pankovmp@bk.ru"
+        }
+    ],
+    "scripts": {
+        "dev": "php -S 0.0.0.0:8080 -t ./www"
+    },
+    "require": {
+        "erusev/parsedown": "^1.7"
+    }
+}

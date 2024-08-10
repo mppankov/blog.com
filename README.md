@@ -1,1 +1,1 @@
-# blog.com
+BLOG.COM
