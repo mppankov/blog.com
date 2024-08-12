@@ -4,7 +4,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 try {
     
-    $route = $_GET['route'] ?? '';
+    $route = $_SERVER['REQUEST_URI'] ?? '';
     $routes = require __DIR__ . '/../../src/routes_api.php';
 
     $isRouteFound = false;
