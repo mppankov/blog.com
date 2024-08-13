@@ -5,8 +5,16 @@ require __DIR__ . '/../vendor/autoload.php';
 try {
 
     $route = $_SERVER['REQUEST_URI'] ?? '';
-    $routes = require __DIR__ . '/../src/routes.php';
 
+    if(substr($route, 1, 3) === 'api'){
+
+        $routes = require __DIR__ . '/../src/routes_api.php';
+
+    } else {
+
+        $routes = require __DIR__ . '/../src/routes.php';
+    }
+    
     $isRouteFound = false;
 
     foreach ($routes as $pattern => $controllerAndAction) {
@@ -22,7 +30,7 @@ try {
 
     if (!$isRouteFound) {
 
-        throw new \MyProject\Exceptions\NotFoundException();
+        throw new \MyProject\Exceptions\NotFoundException('Route not found');
     }
 
     unset($matches[0]);

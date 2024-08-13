@@ -12,7 +12,5 @@ return [
     '~(\d+)$~' => [\MyProject\Controllers\MainController::class, 'page'],
     '~before/(\d+)$~' => [\MyProject\Controllers\MainController::class, 'before'],
     '~after/(\d+)$~' => [\MyProject\Controllers\MainController::class, 'after'],
-    //'~articles/(\d+)$~' => [\MyProject\Controllers\Api\ArticlesApiController::class, 'view'],
-    //'~articles/add$~' => [\MyProject\Controllers\Api\ArticlesApiController::class, 'add'],
     '~^/$~' => [\MyProject\Controllers\MainController::class, 'main'],
 ];
