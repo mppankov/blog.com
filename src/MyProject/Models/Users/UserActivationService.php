@@ -10,9 +10,7 @@ class UserActivationService
 
     public static function createActivationCode(User $user): string
     {
-        
         $code = bin2hex(random_bytes(16));
-
         $db = Db::getInstance();
         $db->query(
             'INSERT INTO ' . self::TABLE_NAME . ' (user_id, code) VALUES (:user_id, :code)',

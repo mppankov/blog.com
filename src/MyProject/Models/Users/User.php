@@ -109,6 +109,7 @@ class User extends ActiveRecordEntity
         }
 
         $user = User::findOneByColumn('email', $loginData['email']);
+        
         if ($user === null) {
             throw new InvalidArgumentException('Нет пользователя с таким email');
         }

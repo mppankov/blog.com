@@ -25,8 +25,7 @@ abstract class AbstractCommand
 
     protected function ensureParamExists(string $paramName)
     {
-        if (!isset($this->params[$paramName])) {
-            
+        if (!isset($this->params[$paramName])) {  
             throw new CliException('Param with name "' . $paramName . '" is not set!');
         }
     }

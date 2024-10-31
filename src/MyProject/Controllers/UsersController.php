@@ -13,20 +13,15 @@ class UsersController extends AbstractController
 {
     public function signUp()
     {
-        if (!empty($_POST)) {
-            
+        if (!empty($_POST)) {           
             try {
-
                 $user = User::signUp($_POST);
-
             } catch (InvalidArgumentException $e) {
-
                 $this->view->renderHtml('users/signUp.php', ['error' => $e->getMessage()]);
                 return;
             }
 
             if ($user instanceof User) {
-
                 $code = UserActivationService::createActivationCode($user);
 
                 EmailSender::send($user, 'Активация', 'userActivation.php', [
@@ -38,7 +33,6 @@ class UsersController extends AbstractController
                 return;
             }
         }
-
         $this->view->renderHtml('users/signUp.php');
     }
     
@@ -48,7 +42,6 @@ class UsersController extends AbstractController
         $isCodeValid = UserActivationService::checkActivationCode($user, $activationCode);
 
         if ($isCodeValid) {
-
             $user->activate();
             echo 'OK!';
         }
@@ -57,16 +50,12 @@ class UsersController extends AbstractController
     public function login()
     {
         if (!empty($_POST)) {
-
             try {
-
                 $user = User::login($_POST);
                 UsersAuthService::createToken($user);
                 header('Location: /');
                 exit();
-
             } catch (InvalidArgumentException $e) {
-
                 $this->view->renderHtml('users/login.php', ['error' => $e->getMessage()]);
                 return;
             }

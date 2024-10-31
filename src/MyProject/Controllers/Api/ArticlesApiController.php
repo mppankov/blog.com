@@ -13,11 +13,10 @@ class ArticlesApiController extends AbstractController
     {
         $article = Article::getById($articleId);
 
-        if ($article === null) {
-            
+        if ($article === null) {           
             throw new NotFoundException();
         }
-
+        
         $this->view->displayJson(['article' => $article]);    
     }
 
@@ -25,10 +24,8 @@ class ArticlesApiController extends AbstractController
     {
         $input = $this->getInputData();
         $articleFromRequest = $input['articles'][0];
-
         $authorId = $articleFromRequest['author_id'];
         $author = User::getById($authorId);
-
         $article = Article::createFromArray($articleFromRequest, $author);
         $article->save();
 

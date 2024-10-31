@@ -15,21 +15,17 @@ class UsersAuthService
         $token = $_COOKIE['token'] ?? '';
 
         if (empty($token)) {
-
             return null;
         }
 
         [$userId, $authToken] = explode(':', $token, 2);
-
         $user = User::getById((int) $userId);
 
         if ($user === null) {
-
             return null;
         }
 
-        if ($user->getAuthToken() !== $authToken) {
-            
+        if ($user->getAuthToken() !== $authToken) {    
             return null;
         }
 

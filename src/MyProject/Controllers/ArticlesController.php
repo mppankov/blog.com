@@ -16,7 +16,6 @@ class ArticlesController extends AbstractController
         $article = Article::getById($articleId);
 
         if ($article === null) {
-
             throw new NotFoundException();
         }
 
@@ -28,28 +27,21 @@ class ArticlesController extends AbstractController
         $article = Article::getById($articleId);
 
         if ($article === null) {
-
             throw new NotFoundException();
         }
 
         if ($this->user === null) {
-
             throw new UnauthorizedException();
         }
 
         if(!$this->user->isAdmin()) {
-
             throw new ForbiddenException('Для редактирования статьи нужно обладать правами администратора');
         }
     
         if (!empty($_POST)) {
-
             try {
-
                 $article->updateFromArray($_POST);
-
             } catch (InvalidArgumentException $e) {
-
                 $this->view->renderHtml('/articles/edit.php', ['error' => $e->getMessage(), 'article' => $article]);
                 return;
             }
@@ -57,30 +49,24 @@ class ArticlesController extends AbstractController
             header('Location: /articles/' . $article->getId(), true, 302);
             exit();
         }
-    
+
         $this->view->renderHtml('/articles/edit.php', ['article' => $article]);
     }
 
     public function add(): void
     {
         if ($this->user === null) {
-
             throw new UnauthorizedException();
         }
 
         if(!$this->user->isAdmin()) {
-
             throw new ForbiddenException('Для добавления статьи нужно обладать правами администратора');
         }
 
         if (!empty($_POST)) {
-
             try {
-
                 $article = Article::createFromArray($_POST, $this->user);
-
             } catch (InvalidArgumentException $e) {
-
                 $this->view->renderHtml('/articles/add.php', ['error' => $e->getMessage()]);
                 return;
             }
@@ -97,11 +83,8 @@ class ArticlesController extends AbstractController
         $article = Article::getById($articleId);
 
         if ($article === null) {
-
             throw new NotFoundException();
-
         } else {
-
             $this->view->renderHtml('errors/delete.php', [], 404);
             $article->delete();
         }
