@@ -67,7 +67,7 @@ abstract class ActiveRecordEntity implements \JsonSerializable
         $params2values = [];
 
         foreach ($filteredProperties as $columnName => $value) {
-            $columns[] = '`' . $columnName. '`';
+            $columns[] = '`' . $columnName . '`';
             $paramName = ':' . $columnName;
             $paramsNames[] = $paramName;
             $params2values[$paramName] = $value;

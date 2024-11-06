@@ -60,7 +60,7 @@ class ArticlesController extends AbstractController
         }
 
         if(!$this->user->isAdmin()) {
-            throw new ForbiddenException('Для добавления статьи нужно обладать правами администратора');
+            throw new ForbiddenException('Для добавления статьи нужно обладать правами администратора!');
         }
 
         if (!empty($_POST)) {

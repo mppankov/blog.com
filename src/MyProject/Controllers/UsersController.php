@@ -8,6 +8,7 @@ use MyProject\Models\Users\UserActivationService;
 use MyProject\Models\Users\UsersAuthService;
 use MyProject\Services\EmailSender;
 use MyProject\Controllers\AbstractController;
+use MyProject\Exceptions\ActivateUserExeption;
 
 class UsersController extends AbstractController
 {
@@ -38,12 +39,40 @@ class UsersController extends AbstractController
     
     public function activate(int $userId, string $activationCode)
     {
+        try {
+            $user = User::getById($userId);
+
+            if ($user === null) {
+                throw new ActivateUserExeption('Нет такого пользователя');
+            }
+
+            if ($user->getIsConfirmed() === 1) {
+                throw new ActivateUserExeption('Пользователь уже активирован');
+            }
+
+            $isCodeValid = UserActivationService::checkActivationCode($user, $activationCode);
+
+            if (!$isCodeValid) {
+                throw new ActivateUserExeption('Не создан код активации');
+            }
+
+            if ($isCodeValid) {
+                $user->activate();
+                UserActivationService::deleteActivationCode($user);
+                $this->view->renderHtml('mail/activationSuccessful.php', []);
+            }
+
+        } catch (ActivateUserExeption $e) {
+            $this->view->renderHtml('errors/noId.php', ['error' => $e->getMessage()]);
+            return;
+        }
+
         $user = User::getById($userId);
         $isCodeValid = UserActivationService::checkActivationCode($user, $activationCode);
 
         if ($isCodeValid) {
             $user->activate();
-            echo 'OK!';
+            $this->view->renderHtml('mail/activationSuccessful.php', []);
         }
     }
 

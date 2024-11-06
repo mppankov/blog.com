@@ -40,6 +40,11 @@ class User extends ActiveRecordEntity
         return $this->email;
     }
 
+    public function getIsConfirmed (): int
+    {
+        return $this->isConfirmed;
+    }
+
     public static function signUp(array $userData): User
     {
         if (empty($userData['nickname'])) {
@@ -128,7 +133,7 @@ class User extends ActiveRecordEntity
         return $user;
     }
 
-    private function refreshAuthToken()
+     function refreshAuthToken(): void
     {
         $this->authToken = sha1(random_bytes(100)) . sha1(random_bytes(100));
     }
