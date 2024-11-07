@@ -27,6 +27,9 @@ class CommentsController extends AbstractController
 
     public function add($articleId): void
     {
+        $article = Article::getById($articleId);
+        $comments = Comments::getAllCommentsByArticleId($articleId);
+
         if ($this->user === null){
             throw new UnauthorizedException();
         }
@@ -43,7 +46,7 @@ class CommentsController extends AbstractController
             try {
                 Comments::add($_POST, $articleId, $this->user);
             } catch (InvalidArgumentException $e) {
-                $this->view->renderHtml('/articles/comments.php', ['error' => $e->getMessage()]);
+                $this->view->renderHtml('comments/view.php', ['error' => $e->getMessage(), 'article' => $article, 'comments' => $comments]);
                 return;
             }
     

@@ -12,6 +12,6 @@ class TestCron extends AbstractCommand
 
     public function execute()
     {
-        file_put_contents('log.txt', date(DATE_ISO8601) . PHP_EOL, FILE_APPEND);
+        file_put_contents('/home/maksim/Документы/Проекты/Обучение/blog.com/src/MyProject/Cli/log.txt', date(DATE_ISO8601) . PHP_EOL, FILE_APPEND);
     }
 }

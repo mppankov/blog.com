@@ -5,7 +5,7 @@
     <?php endif; ?>
     <form action="/comments/<?= $comment->getId() ?>/edit" method="post">
         <label for="text">Комментарий</label><br>
-        <textarea name="text" id="text" rows="10" cols="80"><?= $_POST['text'] ?? $comment->getText() ?></textarea><br>
+        <textarea name="text" id="text" rows="10" cols="80"><?= $_POST['text'] ?? htmlentities($comment->getText()) ?></textarea><br>
         <br>
         <input type="submit" value="Обновить">
     </form>

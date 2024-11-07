@@ -45,6 +45,11 @@ class Comments extends ActiveRecordEntity
         $this->text = $text;
     }
 
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
+    }
+
     protected static function getTableName(): string
     {
         return 'comments';
